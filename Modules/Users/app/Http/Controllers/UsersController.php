@@ -20,7 +20,7 @@ class UsersController extends Controller
         $user = User::create($data);
         $token = auth('api')->login($user);
         $user->save();
-        return $this->respondWithToken($token, $user, __('users::auth.register'));
+        return $this->respondWithToken($token, $user, 'user registered successfully');
     }
 
     public function login(LoginRequest $request)
@@ -44,7 +44,7 @@ class UsersController extends Controller
     {
         auth('api')->logout();
         return lynx()
-            ->message(__('users::auth.loged_out'))
+            ->message('user loged out successfully')
             ->response();
     }
 
@@ -57,7 +57,7 @@ class UsersController extends Controller
 
     protected function respondWithToken($token, $user, $message = null)
     {
-        $message = $message ?? __('users::auth.login_success');
+        $message = $message ?? 'user login success';
 
         return lynx()
             ->data([
@@ -70,7 +70,7 @@ class UsersController extends Controller
 
     protected function respondWithUserData($user, $message = null)
     {
-        $message = $message ?? __('users::auth.data_get');
+        $message = $message ?? 'user data get successfully';
         return lynx()
             ->data([
                 'user' => new UserResource($user),
@@ -83,7 +83,7 @@ class UsersController extends Controller
     {
         return lynx()
             ->status(404)
-            ->message(__('users::auth.login_failed'))
+            ->message('user login failed')
             ->response();
     }
 }
