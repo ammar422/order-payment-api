@@ -16,7 +16,10 @@ class OrderItemFactory extends Factory
      */
     public function definition(): array
     {
-        return [];
+        return [
+            'product_name' => fake()->words(2, true),
+            'quantity' => rand(1, 5),
+            'price' => fake()->randomFloat(2, 5, 100),
+        ];
     }
 }
-

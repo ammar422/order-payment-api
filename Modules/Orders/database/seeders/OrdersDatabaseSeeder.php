@@ -3,6 +3,7 @@
 namespace Modules\Orders\Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Modules\Orders\Models\Order;
 
 class OrdersDatabaseSeeder extends Seeder
 {
@@ -12,5 +13,7 @@ class OrdersDatabaseSeeder extends Seeder
     public function run(): void
     {
         // $this->call([]);
+
+        Order::factory()->count(10)->create();
     }
 }

@@ -2,6 +2,8 @@
 
 namespace Modules\Payments\Database\Factories;
 
+use Illuminate\Support\Str;
+use Modules\Orders\Models\Order;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PaymentFactory extends Factory
@@ -16,7 +18,14 @@ class PaymentFactory extends Factory
      */
     public function definition(): array
     {
-        return [];
+        return [
+            'order_id' => Order::inRandomOrder()->first()->id,
+            'gatway' => fake()->randomElement(['stripe', 'paypal']),
+            'status' => 'pending',
+            'payment_url' => fake()->url(),
+            'transaction_details' => [
+                'mock_transaction_id' => Str::uuid(),
+            ],
+        ];
     }
 }
-
