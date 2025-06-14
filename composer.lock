@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d56ed5d2dd40a0d9b0b5cd2002eef07d",
+    "content-hash": "719b9c4d535c81b5770bc629c93170f1",
     "packages": [
         {
             "name": "brick/math",
@@ -2733,6 +2733,66 @@
                 }
             ],
             "time": "2025-04-28T07:57:29+00:00"
+        },
+        {
+            "name": "phpanonymous/lynx",
+            "version": "1.0.19",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/arabnewscms/lynx.git",
+                "reference": "1205bbe6f46c2547cb0733ee45973db1894c11d1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/arabnewscms/lynx/zipball/1205bbe6f46c2547cb0733ee45973db1894c11d1",
+                "reference": "1205bbe6f46c2547cb0733ee45973db1894c11d1",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": [],
+                    "providers": [
+                        "Lynx\\LynxProvider"
+                    ]
+                },
+                "branch-alias": {
+                    "dev-master": "1.0.19.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/init.php"
+                ],
+                "psr-4": {
+                    "Lynx\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mahmoud Ibrahim",
+                    "email": "php.anonymous1@gmail.com",
+                    "homepage": "https://github.com/arabnewscms"
+                }
+            ],
+            "description": "automatic generate api",
+            "keywords": [
+                "api",
+                "auto",
+                "automatic",
+                "generate",
+                "laravel",
+                "lynx"
+            ],
+            "support": {
+                "issues": "https://github.com/arabnewscms/lynx/issues",
+                "source": "https://github.com/arabnewscms/lynx/tree/1.0.19"
+            },
+            "time": "2025-03-13T00:40:55+00:00"
         },
         {
             "name": "phpoption/phpoption",

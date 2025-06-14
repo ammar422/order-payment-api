@@ -4,6 +4,8 @@ namespace Modules\Users\Http\Controllers;
 
 use Modules\Users\Models\User;
 use App\Http\Controllers\Controller;
+use Modules\Users\Transformers\UserResource;
+use Modules\Users\Http\Requests\LoginRequest;
 use Modules\Users\Http\Requests\RegisterRequest;
 
 class UsersController extends Controller
@@ -21,43 +23,67 @@ class UsersController extends Controller
         return $this->respondWithToken($token, $user, __('users::auth.register'));
     }
 
-    public function login()
+    public function login(LoginRequest $request)
     {
-        $credentials = request(['email', 'password']);
-
-        if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+        $token =  auth('api')->attempt($request->all(), true);
+        if (!$token) {
+            return $this->respondInvaliedCredentials();
         }
+        $user = auth('api')->user();
 
-        return $this->respondWithToken($token);
+        return $this->respondWithToken($token, $user);
     }
 
 
     public function me()
     {
-        return response()->json(auth()->user());
+        return $this->respondWithUserData(auth('api')->user());
     }
-
 
     public function logout()
     {
-        auth()->logout();
-
-        return response()->json(['message' => 'Successfully logged out']);
+        auth('api')->logout();
+        return lynx()
+            ->message(__('users::auth.loged_out'))
+            ->response();
     }
-
 
     public function refresh()
     {
-        return $this->respondWithToken(auth()->refresh());
+        $user = auth('api')->user();
+        return $this->respondWithToken(auth('api')->refresh(), $user);
     }
 
 
-    protected function respondWithToken($token, $user)
+    protected function respondWithToken($token, $user, $message = null)
     {
-        return response()->json([
-            'access_token' => $token,
-            'user' => $user,
-        ]);
+        $message = $message ?? __('users::auth.login_success');
+
+        return lynx()
+            ->data([
+                'token' => $token,
+                'user' => new UserResource($user),
+            ])
+            ->message($message)
+            ->response();
+    }
+
+    protected function respondWithUserData($user, $message = null)
+    {
+        $message = $message ?? __('users::auth.data_get');
+        return lynx()
+            ->data([
+                'user' => new UserResource($user),
+            ])
+            ->message($message)
+            ->response();
+    }
+
+    protected function respondInvaliedCredentials()
+    {
+        return lynx()
+            ->status(404)
+            ->message(__('users::auth.login_failed'))
+            ->response();
     }
 }
