@@ -1,61 +1,174 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+ Laravel Payment System named order-payment-api
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+---
 
-## About Laravel
+### 📘 Why You Should Read This README
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+The `README.md` file is your **complete guide to understanding, setting up, and using this project effectively**. It contains critical information such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+* ✅ **Installation & Environment Setup** — So you can get the project running locally without guesswork.
+* 🔐 **Authentication Flow** — Learn how to securely register, log in, and use JWT tokens to access protected endpoints.
+* 💳 **Order & Payment API Usage** — Get step-by-step instructions for working with orders, processing payments, and handling gateway callbacks.
+* 🧩 **Payment Gateway Extensibility** — Understand how the system is designed using the Strategy Pattern and how to add new payment gateways with minimal effort.
+* 🧪 **Testing & Seeding** — Learn how to run tests and use seeders/factories to populate the database with sample data for testing.
+* 📂 **Postman Documentation** — Quickly test endpoints with the included collection and understand request/response formats.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+> 🚨 Whether you're a developer, tester, or reviewer — reading the README ensures you avoid misconfiguration, know the business rules, and understand the architecture.
 
-## Learning Laravel
+**TL;DR: The README saves your time, prevents confusion, and helps you get the most out of the system.**
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 📦 Overview
+This project is a modular HMVC Laravel 12 API system to manage orders and payments using an extensible, strategy-based architecture for payment gateways (Stripe, PayPal, etc.).
+------------------
+##APIs Only
+support Api versioning (this is version one) so all Apis prifixed like this api/v1
+----------
 
-## Laravel Sponsors
+## 📦 PostMan Collection 
+•	Postman collection and API documentation shared URL ::  https://documenter.getpostman.com/view/30436383/2sB2x6nsdE 
+* dont forget to set your Postman workspace env (url and token)
+* You can import it in Postman to test:
+  Auth ,
+  Orders and 
+  Payments
+--------
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 📦 Routes
+## Route list :: 18 routes
+  * POST            api/v1/login.
+  * POST            api/v1/logout .
+  * GET|HEAD        api/v1/me .
+  * GET|HEAD        api/v1/orders .
+  * POST            api/v1/orders 
+  * GET|HEAD        api/v1/orders/{order} .
+  * PUT|PATCH       api/v1/orders/{order} .
+  * DELETE          api/v1/orders/{order} .
+  * POST            api/v1/orders/{order} .
+  * POST            api/v1/orders/{order}/confirm .
+  * GET|HEAD        api/v1/payment/all .
+  * GET|HEAD        api/v1/payment/callback/{gateway}.
+  * GET|HEAD        api/v1/payment/pay/{gateway} .
+  * POST            api/v1/refresh .
+  * POST            api/v1/register .
+-----------------
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## 🚀 Setup Instructions
 
-## Contributing
+1. Clone Repo
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+git clone https://github.com/ammar422/order-payment-api.git
+cd order-payment-api.git
+```
 
-## Code of Conduct
+2. Install Dependencies
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan jwt:secret
+```
+3.  Configure .env
 
-## Security Vulnerabilities
+* DB_CONNECTION=mysql
+* DB_HOST=127.0.0.1
+* DB_PORT=3306
+* DB_DATABASE=order-payment-api
+* DB_USERNAME=root
+* DB_PASSWORD=
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-## License
+* JWT_TTL=60
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+* PAYPAL_MODE=sandbox
+* PAYPAL_SANDBOX_CLIENT_ID=
+* PAYPAL_SANDBOX_CLIENT_SECRET=
+
+* PAYPAL_LIVE_CLIENT_ID=
+* PAYPAL_LIVE_CLIENT_SECRET=
+
+* PAYPAL_PAYMENT_ACTION=Sale
+* PAYPAL_CURRENCY=MYR
+* PAYPAL_NOTIFY_URL=https://yourdomain.com/paypal/notify
+* PAYPAL_LOCALE=en_US
+* PAYPAL_VALIDATE_SSL=true
+
+* STRIPE_API_KEY=
+* STRIPE_3D_ENABLED=true
+
+
+4.Run Migrations & Seeders
+* php artisan migrate:fresh --seed
+
+5. serve
+```bash
+php artisan serve
+```
+
+Authentication
+* JWT is used for securing routes.
+
+* Endpoints:
+* POST /api/v1/register
+* POST /api/v1/login
+* Use the returned token to access authenticated routes with:
+* Authorization: Bearer {token}
+
+
+
+
+---------------------------------------------------------
+
+🧠 Payment Gateway Extensibility
+✨ How to Add a New Gateway
+
+1.Implement the Interface
+* class NewGateway implements PaymentGatewayInterface
+* Implement pay() and handleCallback()
+
+2.Register It
+* In PaymentGatewayResolver.php:
+*
+  ```
+  return match ($gatewayName) {
+    'stripe' => new StripeGateway(),
+    'paypal' => new PayPalGateway(),
+    'newgateway' => new NewGateway(),
+    default => throw ...
+
+};
+
+3.define your new payment class as you like (3rd party package or manually) and set up your logic inside and here we go 
+
+4.set your config (config/newGateway.php) and you env vars
+* That’s it. Your gateway is now available at:
+
+5.payment process routes
+* /payment/pay/newgateway
+* /payment/callback/newgateway
+
+
+----------------------------------------------------
+📬 Notes & Assumptions
+* Each order can have multiple payments.
+
+* Order updates and deletion is only allowed when no payments exist.
+
+* Payments only allowed for orders with status = confirmed.
+
+* Uses UUIDs and SoftDeletes for all core models.
+  
+* Uses Modules for Orders and Payments for scalability.
+
+* Initialized lynx package for unify the API response Globally.
+
+----------------------
+
+
+
