@@ -2,55 +2,62 @@
 
 namespace Modules\Users\Http\Controllers;
 
+use Modules\Users\Models\User;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Modules\Users\Http\Requests\RegisterRequest;
 
 class UsersController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+
+    public function register(RegisterRequest $request)
     {
-        return view('users::index');
+        $data = $request->validated();
+        $data['password'] = is_string($request->password) ? bcrypt($request->password) : null;
+        $data['account_type'] = 'user';
+        $user = User::create($data);
+        $token = auth('api')->login($user);
+        $user->save();
+        return $this->respondWithToken($token, $user, __('users::auth.register'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function login()
     {
-        return view('users::create');
+        $credentials = request(['email', 'password']);
+
+        if (! $token = auth()->attempt($credentials)) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
+        return $this->respondWithToken($token);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request) {}
 
-    /**
-     * Show the specified resource.
-     */
-    public function show($id)
+    public function me()
     {
-        return view('users::show');
+        return response()->json(auth()->user());
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
+
+    public function logout()
     {
-        return view('users::edit');
+        auth()->logout();
+
+        return response()->json(['message' => 'Successfully logged out']);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id) {}
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id) {}
+    public function refresh()
+    {
+        return $this->respondWithToken(auth()->refresh());
+    }
+
+
+    protected function respondWithToken($token, $user)
+    {
+        return response()->json([
+            'access_token' => $token,
+            'user' => $user,
+        ]);
+    }
 }
