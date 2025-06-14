@@ -141,13 +141,13 @@ return [
             'helpers' => ['path' => 'app/Helpers', 'generate' => false],
             'interfaces' => ['path' => 'app/Interfaces', 'generate' => false],
             'listener' => ['path' => 'app/Listeners', 'generate' => false],
-            'model' => ['path' => 'app/Models', 'generate' => false],
+            'model' => ['path' => 'app/Models', 'generate' => true],
             'notifications' => ['path' => 'app/Notifications', 'generate' => false],
             'observer' => ['path' => 'app/Observers', 'generate' => false],
-            'policies' => ['path' => 'app/Policies', 'generate' => false],
+            'policies' => ['path' => 'app/Policies', 'generate' => true],
             'provider' => ['path' => 'app/Providers', 'generate' => true],
             'repository' => ['path' => 'app/Repositories', 'generate' => false],
-            'resource' => ['path' => 'app/Transformers', 'generate' => false],
+            'resource' => ['path' => 'app/Transformers', 'generate' => true],
             'route-provider' => ['path' => 'app/Providers', 'generate' => true],
             'rules' => ['path' => 'app/Rules', 'generate' => false],
             'services' => ['path' => 'app/Services', 'generate' => false],
@@ -157,7 +157,7 @@ return [
             // app/Http/
             'controller' => ['path' => 'app/Http/Controllers', 'generate' => true],
             'filter' => ['path' => 'app/Http/Middleware', 'generate' => false],
-            'request' => ['path' => 'app/Http/Requests', 'generate' => false],
+            'request' => ['path' => 'app/Http/Requests', 'generate' => true],
 
             // config/
             'config' => ['path' => 'config', 'generate' => true],
@@ -168,7 +168,7 @@ return [
             'seeder' => ['path' => 'database/seeders', 'generate' => true],
 
             // lang/
-            'lang' => ['path' => 'lang', 'generate' => false],
+            'lang' => ['path' => 'lang', 'generate' => true],
 
             // resource/
             'assets' => ['path' => 'resources/assets', 'generate' => true],
