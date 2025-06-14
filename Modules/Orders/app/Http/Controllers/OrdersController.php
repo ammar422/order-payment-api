@@ -50,10 +50,6 @@ class OrdersController extends Controller
 
     public function update(UpdateOrderRequest $request, Order $order)
     {
-        if ($order->payments()->exists()) {
-            return lynx()->message('Cannot update order with existing payments')->status(400)->response();
-        }
-
         return DB::transaction(function () use ($order, $request) {
             $order->items()->delete();
             $total = collect($request['items'])->sum(fn($item) => $item['price'] * $item['quantity']);
@@ -71,10 +67,6 @@ class OrdersController extends Controller
 
     public function destroy(Order $order)
     {
-
-        if ($order->payments()->exists()) {
-            return lynx()->message('Cannot delete order with existing payments')->status(400)->response();
-        }
         return DB::transaction(function () use ($order) {
             $order->items()->delete();
             $order->delete();
