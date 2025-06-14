@@ -11,8 +11,9 @@
         "laravel/tinker": "^2.10.1",
         "nwidart/laravel-modules": "^12.0",
         "tymon/jwt-auth": "^2.2",
-        "phpanonymous/lynx": "^1.0"
-
+        "phpanonymous/lynx": "^1.0",
+        "bajjour/stripe": "^1.0",
+        "srmklive/paypal": "~3.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignUuid('order_id')->constrained('orders')->cascadeOnDelete()->cascadeOnUpdate();
             $table->enum('status', ['pending', 'successful', 'failed'])->default('pending');
             $table->string('gatway')->nullable();
-            $table->string('payment_url')->nullable();
+            $table->string('payment_url', 500)->nullable();
             $table->json('transaction_details')->nullable();
             $table->softDeletes();
             $table->timestamps();
